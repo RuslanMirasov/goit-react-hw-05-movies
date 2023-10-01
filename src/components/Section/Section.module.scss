@@ -1,0 +1,20 @@
+.Section {
+  width: 100%;
+  padding: 20px 0px;
+  position: relative;
+  z-index: 2;
+  .SectionContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0px 20px;
+    max-width: 1240px;
+    gap: 20px;
+    h2 {
+      width: 100%;
+      font-size: 36px;
+      margin-bottom: 30px;
+    }
+  }
+}

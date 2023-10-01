@@ -1,20 +1,42 @@
-import { useParams, Link, Outlet } from 'react-router-dom';
+import { getMovieDetails } from '../api/api';
+import { useRef, Suspense, useEffect, useState } from 'react';
+import { useParams, Outlet, useLocation } from 'react-router-dom';
+import Section from '../components/Section/Section';
+import AdditionalNavigation from '../components/AdditionalNavigation/AdditionalNavigation';
+import Loading from '../components/Loading/Loading';
+import MovieInfo from '../components/MovieInfo/MovieInfo';
+import GoBackLink from '../components/GoBackLink/GoBackLink';
 
 const MovieSingle = () => {
+  const [movie, setMovie] = useState('');
   const { movieId } = useParams();
+  const location = useLocation();
+  const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
+
+  useEffect(() => {
+    try {
+      const getDetails = async () => {
+        const movieDetails = await getMovieDetails(movieId);
+        setMovie(movieDetails);
+      };
+      getDetails();
+    } catch (error) {
+      console.error(error);
+    }
+  }, [movieId]);
+
   return (
     <>
-      <h2>{movieId}</h2>
-      <p>описание фильма с ID: {movieId}</p>
-      <ul>
-        <li>
-          <Link to="cast">Актёры</Link>
-        </li>
-        <li>
-          <Link to="reviews">Отзывы</Link>
-        </li>
-      </ul>
-      <Outlet />
+      <GoBackLink to={backLinkLocationRef.current} />
+      <MovieInfo info={movie} />
+
+      <Section title={`Additional information ${movieId}`}>
+        <AdditionalNavigation />
+      </Section>
+
+      <Suspense fallback={<Loading />}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

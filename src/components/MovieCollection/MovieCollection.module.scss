@@ -1,0 +1,24 @@
+.MovieCollectionItem {
+  width: calc(25% - (60px / 4));
+  border-radius: 20px;
+  overflow: hidden;
+  z-index: 1;
+  p {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    height: 82px;
+    background: #032541;
+    padding: 20px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 800;
+    span {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      max-height: 42px;
+    }
+  }
+}
