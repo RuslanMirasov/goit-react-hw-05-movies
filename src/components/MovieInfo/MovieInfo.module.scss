@@ -59,6 +59,15 @@
     p {
       color: #3ec58e;
     }
+    @media screen and (max-width: 767px) {
+      width: 100%;
+      height: auto;
+      float: none;
+      margin-bottom: 20px;
+      h1 {
+        font-size: 38px;
+      }
+    }
   }
 
   .MoviePoster {
@@ -73,6 +82,15 @@
     img {
       width: 100%;
       height: auto;
+    }
+    @media screen and (max-width: 767px) {
+      display: block;
+      width: 100%;
+      max-width: 375px;
+      height: auto;
+      float: none;
+      margin: 0 auto;
+      margin-bottom: 20px;
     }
   }
 
@@ -93,6 +111,12 @@
       color: #3ec58e;
       font-weight: 600;
       align-items: center;
+    }
+    @media screen and (max-width: 767px) {
+      width: 100%;
+      height: auto;
+      float: none;
+      margin-top: 0px;
     }
   }
 }

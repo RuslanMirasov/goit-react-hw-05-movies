@@ -1,0 +1,18 @@
+.Reviews {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 20px;
+  li {
+    display: block;
+    width: 100%;
+    background: #032541;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    p {
+      margin-top: 10px;
+      opacity: 0.7;
+    }
+  }
+}

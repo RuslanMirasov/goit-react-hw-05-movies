@@ -1,21 +1,35 @@
-import { useState } from 'react';
-import { Link, useSearchParams, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useSearchParams, useLocation } from 'react-router-dom';
+import { handleSearch } from '../api/api';
+import MovieCollection from '../components/MovieCollection/MovieCollection';
+import Loading from '../components/Loading/Loading';
+import SearchForm from '../components/SearchForm/SearchForm';
 
 const Movies = () => {
-  const [movies] = useState([
-    'movie1',
-    'movie2',
-    'movie3',
-    'movie4',
-    'movie5',
-    'movie6',
-  ]);
+  const [searchResults, setSearchResults] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [loading, setLoading] = useState(false);
   const query = searchParams.get('query') ?? '';
   const location = useLocation();
 
+  useEffect(() => {
+    const search = async () => {
+      try {
+        setLoading(true);
+        const movies = await handleSearch(query);
+        setSearchResults(movies);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    search();
+  }, [query]);
+
   const updateQueryString = event => {
-    const query = event.target.value;
+    event.preventDefault();
+    const query = event.target.search.value;
     if (query === '') {
       setSearchParams({});
       return;
@@ -25,16 +39,19 @@ const Movies = () => {
 
   return (
     <>
-      <input type="text" value={query} onChange={updateQueryString} />
-      <h2>Movies</h2>
-      <p>это страница фильмов</p>
-      {movies.map(movie => {
-        return (
-          <Link key={movie} to={`${movie}`} state={{ from: location }}>
-            <div>{movie}</div>
-          </Link>
-        );
-      })}
+      {/* <form action="" method="POST" onSubmit={updateQueryString}>
+        <input type="text" name="search" required placeholder="" />
+        <button type="submit">Search</button>
+      </form> */}
+      <SearchForm onsubmit={updateQueryString} />
+      {loading === true && <Loading />}
+      {query !== '' && loading === false && (
+        <MovieCollection
+          title={`Results for the query "${query}"`}
+          collection={searchResults}
+          state={{ from: location }}
+        />
+      )}
     </>
   );
 };

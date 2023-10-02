@@ -1,5 +1,6 @@
 import Section from '../Section/Section';
 import css from '../MovieInfo/MovieInfo.module.scss';
+import emptyImage from '../../images/no_image.jpg';
 
 const MovieInfo = ({ info }) => {
   const {
@@ -17,8 +18,9 @@ const MovieInfo = ({ info }) => {
       <div className={css.MovieBackground}>
         <img
           src={
-            backdrop_path &&
-            `https://image.tmdb.org/t/p/original${backdrop_path}`
+            backdrop_path
+              ? `https://image.tmdb.org/t/p/original${backdrop_path}`
+              : `${emptyImage}`
           }
           className={css.MovieBackgroundImage}
           alt={`${title} poster`}
@@ -28,20 +30,28 @@ const MovieInfo = ({ info }) => {
         <article className={css.MovieInfo}>
           <div className={css.MovieTitle}>
             <h1>{`${title} (${release_date?.slice(0, 4)})`}</h1>
-            <p>{`User score: ${Math.ceil(vote_average * 10)}%`}</p>
+            {vote_average !== 0 && (
+              <p>{`User score: ${Math.ceil(vote_average * 10)}%`}</p>
+            )}
           </div>
           <div className={css.MoviePoster}>
             <img
               src={
-                poster_path && `https://image.tmdb.org/t/p/w500${poster_path}`
+                poster_path
+                  ? `https://image.tmdb.org/t/p/w500${poster_path}`
+                  : `${emptyImage}`
               }
               alt={`${title} poster`}
               width="500"
             />
           </div>
           <div className={css.MovieDescription}>
-            <h3>Overview</h3>
-            <p>{overview}</p>
+            {overview && (
+              <>
+                <h3>Overview</h3>
+                <p>{overview}</p>
+              </>
+            )}
             <h3>Genres:</h3>
             <ul>
               {genres?.map(genre => (

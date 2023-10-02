@@ -30,7 +30,7 @@ const MovieSingle = () => {
       <GoBackLink to={backLinkLocationRef.current} />
       <MovieInfo info={movie} />
 
-      <Section title={`Additional information ${movieId}`}>
+      <Section title={`Additional information`}>
         <AdditionalNavigation />
       </Section>
 

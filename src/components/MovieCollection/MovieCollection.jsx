@@ -1,8 +1,12 @@
 import Section from '../Section/Section';
 import { Link } from 'react-router-dom';
 import css from '../MovieCollection/MovieCollection.module.scss';
+import emptyImage from '../../images/no_image.jpg';
 
 const MovieCollection = ({ title, collection, state }) => {
+  if (collection.length === 0) {
+    title = 'Nothing was found for your request.';
+  }
   return (
     <Section title={title}>
       {collection.map(movie => {
@@ -12,7 +16,9 @@ const MovieCollection = ({ title, collection, state }) => {
             <Link to={`/movies/${id}`} state={state}>
               <img
                 src={
-                  poster_path && `https://image.tmdb.org/t/p/w500${poster_path}`
+                  poster_path
+                    ? `https://image.tmdb.org/t/p/w500${poster_path}`
+                    : `${emptyImage}`
                 }
                 alt={title}
               />

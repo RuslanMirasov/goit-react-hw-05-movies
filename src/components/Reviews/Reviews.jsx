@@ -1,19 +1,43 @@
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import css from './Reviews.module.scss';
+import { getMovieReviews } from '../../api/api';
+import Section from '../Section/Section';
 
 const Reviews = () => {
   const { movieId } = useParams();
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    const movieReviews = async () => {
+      try {
+        const response = await getMovieReviews(movieId);
+        console.log(response);
+        setReviews(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    movieReviews();
+  }, [movieId]);
+
   return (
-    <>
-      <h5>
-        Отзывы о фильме <b>{movieId}</b>:
-      </h5>
-      <ul>
-        <li>Отзыв 1</li>
-        <li>Отзыв 2</li>
-        <li>Отзыв 3</li>
-        <li>Отзыв 4</li>
-      </ul>
-    </>
+    <Section>
+      {reviews.length !== 0 && (
+        <ul className={css.Reviews}>
+          {reviews.map(review => (
+            <li key={review.id}>
+              <h3>{review.author}</h3>
+              <p>{review.content}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+      {reviews.length === 0 && (
+        <h3>We don't have any reviews for this movie.</h3>
+      )}
+    </Section>
   );
 };
 

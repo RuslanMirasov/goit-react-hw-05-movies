@@ -1,0 +1,37 @@
+.Casts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  gap: 20px;
+}
+
+.Cast {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: calc(20% - 80px / 5);
+  @media screen and (max-width: 1279px) {
+    width: calc(25% - 60px / 4);
+  }
+  @media screen and (max-width: 1023px) {
+    width: calc(33.333333% - 40px / 3);
+  }
+  @media screen and (max-width: 767px) {
+    width: calc(50% - 20px / 2);
+  }
+  @media screen and (max-width: 479px) {
+    width: 100%;
+  }
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 1;
+  p {
+    padding: 10px 20px;
+    background: #032541;
+    color: #fff;
+    font-weight: 600;
+  }
+}
