@@ -14,14 +14,16 @@ const MovieCollection = ({ title, collection, state }) => {
         return (
           <div key={id} className={css.MovieCollectionItem}>
             <Link to={`/movies/${id}`} state={state}>
-              <img
-                src={
-                  poster_path
-                    ? `https://image.tmdb.org/t/p/w500${poster_path}`
-                    : `${emptyImage}`
-                }
-                alt={title}
-              />
+              <div className={css.ImageWrapper}>
+                <img
+                  src={
+                    poster_path
+                      ? `https://image.tmdb.org/t/p/w500${poster_path}`
+                      : `${emptyImage}`
+                  }
+                  alt={title}
+                />
+              </div>
               <p>
                 <span>{title}</span>
               </p>
