@@ -39,10 +39,6 @@ const Movies = () => {
 
   return (
     <>
-      {/* <form action="" method="POST" onSubmit={updateQueryString}>
-        <input type="text" name="search" required placeholder="" />
-        <button type="submit">Search</button>
-      </form> */}
       <SearchForm onsubmit={updateQueryString} />
       {loading === true && <Loading />}
       {query !== '' && loading === false && (
